@@ -1,7 +1,8 @@
 package com.service.SkillShare.dto;
 
-import org.springframework.web.multipart.MultipartFile;
+import lombok.Data;
 
+@Data
 public class GetPostDto {
     private String id;
     private String Tags;
