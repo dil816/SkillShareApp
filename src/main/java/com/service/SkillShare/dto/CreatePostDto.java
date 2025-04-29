@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
-public class PostDto {
+public class CreatePostDto {
     private String id;
     private String Tags;
     private String ContentTitle;

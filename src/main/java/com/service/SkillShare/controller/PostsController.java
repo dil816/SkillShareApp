@@ -1,6 +1,6 @@
 package com.service.SkillShare.controller;
 
-import com.service.SkillShare.dto.PostDto;
+import com.service.SkillShare.dto.CreatePostDto;
 import com.service.SkillShare.entity.Posts;
 import com.service.SkillShare.service.impl.PostsServiceImpl;
 import org.springframework.http.HttpStatus;
@@ -8,8 +8,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -29,15 +27,15 @@ public class PostsController {
             @RequestPart("PostDescription") String postDescription
     ) {
 
-        PostDto postDto = new PostDto();
-        postDto.setImgFile(file);
-        postDto.setTags(Tags);
-        postDto.setContentTitle(contentTitle);
-        postDto.setPostDescription(postDescription);
+        CreatePostDto createPostDto = new CreatePostDto();
+        createPostDto.setImgFile(file);
+        createPostDto.setTags(Tags);
+        createPostDto.setContentTitle(contentTitle);
+        createPostDto.setPostDescription(postDescription);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(postsService.createPost(postDto));
+                .body(postsService.createPost(createPostDto));
     }
     // can use @RequestPart than @ModelAttribute
 }
