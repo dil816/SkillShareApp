@@ -1,6 +1,7 @@
 package com.service.SkillShare.service;
 
 import com.service.SkillShare.dto.CreatePostDto;
+import com.service.SkillShare.dto.GetPostDto;
 import com.service.SkillShare.entity.Posts;
 
 import java.util.List;
@@ -10,5 +11,5 @@ public interface PostsService {
     Posts createPost(CreatePostDto createPostDto);
 
     // Get All Posts
-    List<Posts> getAllPosts();
+    List<GetPostDto> getAllPosts();
 }
