@@ -7,5 +7,5 @@ public class GetPostDto {
     private String Tags;
     private String ContentTitle;
     private String PostDescription;
-    private MultipartFile ImageBase64;
+    private String ImageBase64;
 }
