@@ -16,7 +16,7 @@ public class PostMapping {
             posts.setContentTitle(postDto.getContentTitle());
             posts.setPostDescription(postDto.getPostDescription());
             posts.setPostImage(
-                    new Binary(BsonBinarySubType.BINARY, postDto.getFile().getBytes())
+                    new Binary(BsonBinarySubType.BINARY, postDto.getImgFile().getBytes())
             );
         } catch (IOException e) {
             throw new RuntimeException(e);

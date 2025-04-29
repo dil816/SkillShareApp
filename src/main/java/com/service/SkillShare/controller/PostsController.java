@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -23,14 +23,14 @@ public class PostsController {
 
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Posts> postPost(
-            @RequestPart("File") MultipartFile file,
+            @RequestPart("ImgFile") MultipartFile file,
             @RequestPart("Tags") String Tags,
             @RequestPart("ContentTitle") String contentTitle,
             @RequestPart("PostDescription") String postDescription
     ) {
 
         PostDto postDto = new PostDto();
-        postDto.setFile(file);
+        postDto.setImgFile(file);
         postDto.setTags(Tags);
         postDto.setContentTitle(contentTitle);
         postDto.setPostDescription(postDescription);

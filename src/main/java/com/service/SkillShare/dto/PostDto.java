@@ -9,7 +9,7 @@ public class PostDto {
     private String Tags;
     private String ContentTitle;
     private String PostDescription;
-    private MultipartFile File;  // photo or video
+    private MultipartFile ImgFile;  // photo or video
 }
 
 
