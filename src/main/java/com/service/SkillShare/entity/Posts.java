@@ -16,14 +16,14 @@ import java.time.LocalDateTime;
 public class Posts {
     @Id
     private String id;
-    private String tags;
+    private String Tags;
     private String ContentTitle;
     private Binary PostImage;
-    private InputStream PostVideo;
+    //private InputStream PostVideo;
     private String PostDescription;
     private LocalDateTime PublishedAt;
 
-    public  void  setPublishedAt() {
-        this.PublishedAt = LocalDateTime.now();
-    }
+//    public  void  setPublishedAt() {
+//        this.PublishedAt = LocalDateTime.now();
+//    }
 }
