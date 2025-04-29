@@ -20,13 +20,14 @@ public class PostsController {
     PostsController(PostsServiceImpl postsService) {
         this.postsService = postsService;
     }
+
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Posts> postPost(
             @RequestPart("File") MultipartFile file,
             @RequestPart("Tags") String Tags,
             @RequestPart("ContentTitle") String contentTitle,
             @RequestPart("PostDescription") String postDescription
-    ) throws IOException {
+    ) {
 
         PostDto postDto = new PostDto();
         postDto.setFile(file);
