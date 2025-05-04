@@ -2,6 +2,7 @@ package com.service.SkillShare.service;
 
 import com.service.SkillShare.dto.CreatePostDto;
 import com.service.SkillShare.dto.GetPostDto;
+import com.service.SkillShare.dto.VideoDto;
 import com.service.SkillShare.entity.Posts;
 
 import java.io.IOException;
@@ -13,4 +14,7 @@ public interface PostsService {
 
     // Get All Posts
     List<GetPostDto> getAllPosts();
+
+    // Stream video
+    VideoDto getVideo(String id);
 }
