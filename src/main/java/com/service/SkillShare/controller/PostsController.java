@@ -2,11 +2,14 @@ package com.service.SkillShare.controller;
 
 import com.service.SkillShare.dto.CreatePostDto;
 import com.service.SkillShare.dto.GetPostDto;
+import com.service.SkillShare.dto.VideoDto;
 import com.service.SkillShare.entity.Posts;
 import com.service.SkillShare.service.impl.PostsServiceImpl;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,7 +46,13 @@ public class PostsController {
     // can use @RequestPart than @ModelAttribute
 
     @GetMapping()
-    public  ResponseEntity<List<GetPostDto>> getAllPosts() {
+    public ResponseEntity<List<GetPostDto>> getAllPosts() {
         return ResponseEntity.status(HttpStatus.OK).body(postsService.getAllPosts());
+    }
+
+    @GetMapping("/videos/stream/{id}")
+    public void streamVideo(@PathVariable String id, HttpServletResponse response) throws Exception {
+        VideoDto video = postsService.getVideo(id);
+        FileCopyUtils.copy(video.getVideoStream(), response.getOutputStream());
     }
 }
