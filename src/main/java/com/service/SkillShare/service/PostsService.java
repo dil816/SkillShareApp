@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface PostsService {
     // Create a new Post
-    Posts createPost(CreatePostDto createPostDto) throws IOException;
+    Posts createPost(CreatePostDto createPostDto);
 
     // Get All Posts
     List<GetPostDto> getAllPosts();
