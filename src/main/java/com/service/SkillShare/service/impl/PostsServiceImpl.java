@@ -2,19 +2,22 @@ package com.service.SkillShare.service.impl;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.mongodb.client.gridfs.model.GridFSFile;
 import com.service.SkillShare.dto.CreatePostDto;
 import com.service.SkillShare.dto.GetPostDto;
+import com.service.SkillShare.dto.VideoDto;
 import com.service.SkillShare.entity.Posts;
-import com.service.SkillShare.mappings.PostMapping;
 import com.service.SkillShare.repository.PostsRepository;
 import com.service.SkillShare.service.PostsService;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
-import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsOperations;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -74,24 +77,11 @@ public class PostsServiceImpl implements PostsService {
 
     @Override
     public List<GetPostDto> getAllPosts() {
+        String videoControllerUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/posts/videos/stream/").toUriString();
         List<Posts> posts = postsRepository.findAll();
         if (posts.isEmpty()) {
             return new ArrayList<>();
         }
-
-//        GetPostDto data = posts.forEach(post -> {
-//            GetPostDto postDto = new GetPostDto();
-//            postDto.setId(post.getId());
-//            postDto.setTags(post.getTags());
-//            postDto.setContentTitle(post.getContentTitle());
-//            postDto.setPostDescription(post.getPostDescription());
-//            postDto.setImageBase64(
-//                    Base64.getEncoder().encodeToString(
-//                            post.getPostImage().getData()
-//                    )
-//            );
-//        });
-
         List<GetPostDto> data = posts.stream()
                 .map(post -> {
                     GetPostDto postDto = new GetPostDto();
@@ -99,15 +89,36 @@ public class PostsServiceImpl implements PostsService {
                     postDto.setTags(post.getTags());
                     postDto.setContentTitle(post.getContentTitle());
                     postDto.setPostDescription(post.getPostDescription());
-                    postDto.setImageBase64(
-                            Base64.getEncoder().encodeToString(
-                                    post.getPostImage().getData()
-                            )
-                    );
+                    if (post.getPostImage() != null) {
+                        postDto.setImageBase64(
+                                Base64.getEncoder().encodeToString(
+                                        post.getPostImage().getData()
+                                )
+                        );
+                    }
+                    if (post.getPostVideoId() != null) {
+                        postDto.setVideoUrl(videoControllerUrl + post.getPostVideoId().toString());
+                    }
                     return postDto;
                 })
                 .toList();
 
         return data;
+    }
+
+    @Override
+    public VideoDto getVideo(String id) {
+        VideoDto videoDto = new VideoDto();
+        GridFSFile file = gridFsTemplate.findOne(Query.query(Criteria.where("_id").is(id)));
+        if (file.getMetadata() != null) {
+            videoDto.setVideoTitle(file.getMetadata().get("title").toString());
+        }
+        try {
+            videoDto.setVideoStream(operations.getResource(file).getInputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return videoDto;
     }
 }
