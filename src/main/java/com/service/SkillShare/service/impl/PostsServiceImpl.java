@@ -48,7 +48,7 @@ public class PostsServiceImpl implements PostsService {
 
     @Override
     public List<GetPostDto> getAllPosts() {
-        String videoControllerUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/posts/videos/stream/").toUriString();
+        String mediaControllerUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/posts/videos/stream/").toUriString();
         List<Posts> posts = postsRepository.findAll();
         if (posts.isEmpty()) {
             return new ArrayList<>();
@@ -61,10 +61,10 @@ public class PostsServiceImpl implements PostsService {
                     postDto.setContentTitle(post.getContentTitle());
                     postDto.setPostDescription(post.getPostDescription());
                     if (post.getPostImageId() != null) {
-                        postDto.setImageUrl(videoControllerUrl + post.getPostImageId());
+                        postDto.setImageUrl(mediaControllerUrl + post.getPostImageId());
                     }
                     if (post.getPostVideoId() != null) {
-                        postDto.setVideoUrl(videoControllerUrl + post.getPostVideoId());
+                        postDto.setVideoUrl(mediaControllerUrl + post.getPostVideoId());
                     }
                     return postDto;
                 })
@@ -75,7 +75,7 @@ public class PostsServiceImpl implements PostsService {
 
     @Override
     public GetPostDto getPostById(String id) {
-        String videoControllerUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/posts/videos/stream/").toUriString();
+        String mediaControllerUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/posts/videos/stream/").toUriString();
         Optional<Posts> post = postsRepository.findById(id);
         GetPostDto postDto = new GetPostDto();
         if (post.isPresent()) {
@@ -84,10 +84,10 @@ public class PostsServiceImpl implements PostsService {
             postDto.setContentTitle(post.get().getContentTitle());
             postDto.setPostDescription(post.get().getPostDescription());
             if (post.get().getPostImageId() != null) {
-                postDto.setImageUrl(videoControllerUrl + post.get().getPostImageId());
+                postDto.setImageUrl(mediaControllerUrl + post.get().getPostImageId());
             }
             if (post.get().getPostVideoId() != null) {
-                postDto.setVideoUrl(videoControllerUrl + post.get().getPostVideoId());
+                postDto.setVideoUrl(mediaControllerUrl + post.get().getPostVideoId());
             }
             return postDto;
         } else {
