@@ -28,7 +28,7 @@ public class PostsController {
 
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Posts> postPost(
-            @RequestPart("ImgFile") MultipartFile file,
+            @RequestPart("MediaFile") MultipartFile file,
             @RequestPart("Tags") String Tags,
             @RequestPart("ContentTitle") String contentTitle,
             @RequestPart("PostDescription") String postDescription
@@ -59,7 +59,7 @@ public class PostsController {
     @PutMapping(value = "{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Posts> updatePost(
             @PathVariable("id") String postId,
-            @RequestPart("ImgFile") MultipartFile file,
+            @RequestPart("MediaFile") MultipartFile file,
             @RequestPart("Tags") String Tags,
             @RequestPart("ContentTitle") String contentTitle,
             @RequestPart("PostDescription") String postDescription
