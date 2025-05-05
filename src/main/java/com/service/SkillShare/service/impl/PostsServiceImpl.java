@@ -5,6 +5,7 @@ import com.mongodb.DBObject;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import com.service.SkillShare.dto.CreatePostDto;
 import com.service.SkillShare.dto.GetPostDto;
+import com.service.SkillShare.dto.UpdatePostDto;
 import com.service.SkillShare.dto.VideoDto;
 import com.service.SkillShare.entity.Posts;
 import com.service.SkillShare.repository.PostsRepository;
@@ -24,6 +25,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -104,6 +106,75 @@ public class PostsServiceImpl implements PostsService {
                 .toList();
 
         return data;
+    }
+
+    @Override
+    public GetPostDto getPostById(String id) {
+        String videoControllerUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/posts/videos/stream/").toUriString();
+        Optional<Posts> post = postsRepository.findById(id);
+        GetPostDto postDto = new GetPostDto();
+        if (post.isPresent()) {
+            postDto.setId(post.get().getId());
+            postDto.setTags(post.get().getTags());
+            postDto.setContentTitle(post.get().getContentTitle());
+            postDto.setPostDescription(post.get().getPostDescription());
+            if (post.get().getPostImage() != null) {
+                postDto.setImageBase64(
+                        Base64.getEncoder().encodeToString(
+                                post.get().getPostImage().getData()
+                        )
+                );
+            }
+            if (post.get().getPostVideoId() != null) {
+                postDto.setVideoUrl(videoControllerUrl + post.get().getPostVideoId().toString());
+            }
+            return postDto;
+        }else {
+          throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public Posts updatePost(String id, UpdatePostDto updatePostDto) {
+        Posts existingPost = postsRepository.findById(id).orElse(null);
+        MultipartFile file = updatePostDto.getImgFile();
+        String contentType = updatePostDto.getImgFile().getContentType();
+        // if post have
+        if(existingPost!=null) {
+            if (contentType != null && contentType.startsWith("video")) {
+                //delete existing gridFs file
+                gridFsTemplate.delete(Query.query(Criteria.where("_id").is(existingPost.getPostVideoId())));
+                try {
+                    DBObject metaData = new BasicDBObject();
+                    metaData.put("type", "video");
+                    metaData.put("title", "hghjg");
+
+                    existingPost.setPostVideoId(gridFsTemplate.store(file.getInputStream(), file.getName(), file.getContentType(), metaData));
+                    existingPost.setTags(updatePostDto.getTags());
+                    existingPost.setContentTitle(updatePostDto.getContentTitle());
+                    existingPost.setPostDescription(updatePostDto.getPostDescription());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }else {
+                try {
+                    existingPost.setTags(updatePostDto.getTags());
+                    existingPost.setContentTitle(updatePostDto.getContentTitle());
+                    existingPost.setPostDescription(updatePostDto.getPostDescription());
+                    existingPost.setPostImage(
+                            new Binary(BsonBinarySubType.BINARY, updatePostDto.getImgFile().getBytes())
+                    );
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            existingPost.setUpdatedAt(LocalDateTime.now());
+            postsRepository.save(existingPost);
+            return existingPost;
+        }
+
+
+        return null;
     }
 
     @Override
