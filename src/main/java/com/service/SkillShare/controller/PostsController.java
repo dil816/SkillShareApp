@@ -2,6 +2,7 @@ package com.service.SkillShare.controller;
 
 import com.service.SkillShare.dto.CreatePostDto;
 import com.service.SkillShare.dto.GetPostDto;
+import com.service.SkillShare.dto.UpdatePostDto;
 import com.service.SkillShare.dto.VideoDto;
 import com.service.SkillShare.entity.Posts;
 import com.service.SkillShare.service.impl.PostsServiceImpl;
@@ -48,6 +49,28 @@ public class PostsController {
     @GetMapping()
     public ResponseEntity<List<GetPostDto>> getAllPosts() {
         return ResponseEntity.status(HttpStatus.OK).body(postsService.getAllPosts());
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<GetPostDto> getPostById(@PathVariable("id") String postId) {
+        return ResponseEntity.status(HttpStatus.OK).body(postsService.getPostById(postId));
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Posts> updatePost(
+            @PathVariable("id") String postId,
+            @RequestPart("ImgFile") MultipartFile file,
+            @RequestPart("Tags") String Tags,
+            @RequestPart("ContentTitle") String contentTitle,
+            @RequestPart("PostDescription") String postDescription
+    ) {
+        UpdatePostDto updatePostDto = new UpdatePostDto();
+        updatePostDto.setImgFile(file);
+        updatePostDto.setTags(Tags);
+        updatePostDto.setContentTitle(contentTitle);
+        updatePostDto.setPostDescription(postDescription);
+
+        return ResponseEntity.status(HttpStatus.OK).body(postsService.updatePost(postId, updatePostDto));
     }
 
     @GetMapping("/videos/stream/{id}")
