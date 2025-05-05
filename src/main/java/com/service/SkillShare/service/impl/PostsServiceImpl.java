@@ -22,10 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -47,32 +44,7 @@ public class PostsServiceImpl implements PostsService {
         //Posts posts = PostMapping.ToEntity(createPostDto);
         MultipartFile file = createPostDto.getImgFile();
         String contentType = createPostDto.getImgFile().getContentType();
-
-        if (contentType != null && contentType.startsWith("video")) {
-            try {
-                DBObject metaData = new BasicDBObject();
-                metaData.put("type", "video");
-                metaData.put("title", "hghjg");
-
-                posts.setPostVideoId(gridFsTemplate.store(file.getInputStream(), file.getName(), file.getContentType(), metaData));
-                posts.setTags(createPostDto.getTags());
-                posts.setContentTitle(createPostDto.getContentTitle());
-                posts.setPostDescription(createPostDto.getPostDescription());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            try {
-                posts.setTags(createPostDto.getTags());
-                posts.setContentTitle(createPostDto.getContentTitle());
-                posts.setPostDescription(createPostDto.getPostDescription());
-                posts.setPostImage(
-                        new Binary(BsonBinarySubType.BINARY, createPostDto.getImgFile().getBytes())
-                );
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        UpsertPostWithImageVideo(contentType, posts, file, createPostDto.getTags(), createPostDto.getContentTitle(), createPostDto.getPostDescription());
         posts.setPublishedAt(LocalDateTime.now());
         return postsRepository.insert(posts);
     }
@@ -129,8 +101,8 @@ public class PostsServiceImpl implements PostsService {
                 postDto.setVideoUrl(videoControllerUrl + post.get().getPostVideoId().toString());
             }
             return postDto;
-        }else {
-          throw new RuntimeException();
+        } else {
+            throw new RuntimeException();
         }
     }
 
@@ -140,41 +112,55 @@ public class PostsServiceImpl implements PostsService {
         MultipartFile file = updatePostDto.getImgFile();
         String contentType = updatePostDto.getImgFile().getContentType();
         // if post have
-        if(existingPost!=null) {
+        if (existingPost != null) {
             if (contentType != null && contentType.startsWith("video")) {
                 //delete existing gridFs file
                 gridFsTemplate.delete(Query.query(Criteria.where("_id").is(existingPost.getPostVideoId())));
-                try {
-                    DBObject metaData = new BasicDBObject();
-                    metaData.put("type", "video");
-                    metaData.put("title", "hghjg");
-
-                    existingPost.setPostVideoId(gridFsTemplate.store(file.getInputStream(), file.getName(), file.getContentType(), metaData));
-                    existingPost.setTags(updatePostDto.getTags());
-                    existingPost.setContentTitle(updatePostDto.getContentTitle());
-                    existingPost.setPostDescription(updatePostDto.getPostDescription());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }else {
-                try {
-                    existingPost.setTags(updatePostDto.getTags());
-                    existingPost.setContentTitle(updatePostDto.getContentTitle());
-                    existingPost.setPostDescription(updatePostDto.getPostDescription());
-                    existingPost.setPostImage(
-                            new Binary(BsonBinarySubType.BINARY, updatePostDto.getImgFile().getBytes())
-                    );
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
             }
+            UpsertPostWithImageVideo(contentType, existingPost, file, updatePostDto.getTags(), updatePostDto.getContentTitle(), updatePostDto.getPostDescription());
             existingPost.setUpdatedAt(LocalDateTime.now());
             postsRepository.save(existingPost);
             return existingPost;
         }
-
-
         return null;
+    }
+
+    @Override
+    public Boolean deletePost(String id) {
+        Posts postToDelete = postsRepository.findById(id).orElse(null);
+        if (postToDelete == null) {
+            return false;
+        }
+
+        if (postToDelete.getPostVideoId() != null) {
+            gridFsTemplate.delete(Query.query(Criteria.where("_id").is(postToDelete.getPostVideoId())));
+        }
+
+        postsRepository.delete(postToDelete);
+
+        return true;
+    }
+
+    private void UpsertPostWithImageVideo(String contentType, Posts post, MultipartFile file, String tags, String contentTitle, String postDescription) {
+        try {
+            System.out.println(contentType);
+            DBObject metaData = new BasicDBObject();
+            metaData.put("type", "video");
+            metaData.put("title", UUID.randomUUID().toString());
+
+            if (contentType != null && contentType.startsWith("video")) {
+                post.setPostVideoId(gridFsTemplate.store(file.getInputStream(), file.getName(), file.getContentType(), metaData));
+            } else if (contentType != null && contentType.startsWith("image")) {
+                post.setPostImage(
+                        new Binary(BsonBinarySubType.BINARY, file.getBytes())
+                );
+            }
+            post.setTags(tags);
+            post.setContentTitle(contentTitle);
+            post.setPostDescription(postDescription);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
