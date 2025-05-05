@@ -39,7 +39,6 @@ public class PostsServiceImpl implements PostsService {
     @Override
     public Posts createPost(CreatePostDto createPostDto) {
         Posts posts = new Posts();
-        //Posts posts = PostMapping.ToEntity(createPostDto);
         MultipartFile file = createPostDto.getImgFile();
         String contentType = createPostDto.getImgFile().getContentType();
         UpsertPostWithImageVideo(contentType, posts, file, createPostDto.getTags(), createPostDto.getContentTitle(), createPostDto.getPostDescription());
@@ -62,11 +61,6 @@ public class PostsServiceImpl implements PostsService {
                     postDto.setContentTitle(post.getContentTitle());
                     postDto.setPostDescription(post.getPostDescription());
                     if (post.getPostImageId() != null) {
-//                        postDto.setImageBase64(
-//                                Base64.getEncoder().encodeToString(
-//                                        post.getPostImage().getData()
-//                                )
-//                        );
                         postDto.setImageUrl(videoControllerUrl + post.getPostImageId().toString());
                     }
                     if (post.getPostVideoId() != null) {
@@ -90,11 +84,6 @@ public class PostsServiceImpl implements PostsService {
             postDto.setContentTitle(post.get().getContentTitle());
             postDto.setPostDescription(post.get().getPostDescription());
             if (post.get().getPostImageId() != null) {
-//                postDto.setImageBase64(
-//                        Base64.getEncoder().encodeToString(
-//                                post.get().getPostImage().getData()
-//                        )
-//                );
                 postDto.setImageUrl(videoControllerUrl + post.get().getPostImageId().toString());
             }
             if (post.get().getPostVideoId() != null) {
@@ -134,13 +123,10 @@ public class PostsServiceImpl implements PostsService {
         if (postToDelete == null) {
             return false;
         }
-
         if (postToDelete.getPostVideoId() != null) {
             gridFsTemplate.delete(Query.query(Criteria.where("_id").is(postToDelete.getPostVideoId())));
         }
-
         postsRepository.delete(postToDelete);
-
         return true;
     }
 
@@ -157,9 +143,6 @@ public class PostsServiceImpl implements PostsService {
                 metaData.put("type", "image");
                 metaData.put("title", UUID.randomUUID().toString());
                 post.setPostImageId(gridFsTemplate.store(file.getInputStream(), file.getName(), file.getContentType(), metaData));
-//                post.setPostImage(
-//                        new Binary(BsonBinarySubType.BINARY, file.getBytes())
-//                );
             }
             post.setTags(tags);
             post.setContentTitle(contentTitle);
@@ -181,7 +164,6 @@ public class PostsServiceImpl implements PostsService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         return mediaDto;
     }
 }
