@@ -19,15 +19,9 @@ public class Posts {
     private String id;
     private String Tags;
     private String ContentTitle;
-    private Binary PostImage;
-    //private InputStream PostVideo;
     private ObjectId PostVideoId;
     private ObjectId PostImageId;
     private String PostDescription;
     private LocalDateTime PublishedAt;
     private LocalDateTime UpdatedAt;
-
-//    public  void  setPublishedAt() {
-//        this.PublishedAt = LocalDateTime.now();
-//    }
 }
