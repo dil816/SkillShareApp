@@ -39,8 +39,8 @@ public class PostsServiceImpl implements PostsService {
     @Override
     public Posts createPost(CreatePostDto createPostDto) {
         Posts posts = new Posts();
-        MultipartFile file = createPostDto.getImgFile();
-        String contentType = createPostDto.getImgFile().getContentType();
+        MultipartFile file = createPostDto.getMediaFile();
+        String contentType = createPostDto.getMediaFile().getContentType();
         UpsertPostWithImageVideo(contentType, posts, file, createPostDto.getTags(), createPostDto.getContentTitle(), createPostDto.getPostDescription());
         posts.setPublishedAt(LocalDateTime.now());
         return postsRepository.insert(posts);

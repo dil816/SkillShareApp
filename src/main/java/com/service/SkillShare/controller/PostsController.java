@@ -35,7 +35,7 @@ public class PostsController {
     ) {
 
         CreatePostDto createPostDto = new CreatePostDto();
-        createPostDto.setImgFile(file);
+        createPostDto.setMediaFile(file);
         createPostDto.setTags(Tags);
         createPostDto.setContentTitle(contentTitle);
         createPostDto.setPostDescription(postDescription);
