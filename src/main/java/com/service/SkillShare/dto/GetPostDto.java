@@ -1,6 +1,5 @@
 package com.service.SkillShare.dto;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,10 +10,6 @@ public class GetPostDto {
     private String Tags;
     private String ContentTitle;
     private String PostDescription;
-    private String ImageBase64;
-
     private String ImageUrl;
     private String VideoUrl;
-
-
 }
