@@ -88,9 +88,9 @@ public class PostsController {
     @DeleteMapping("{id}")
     public ResponseEntity<String> deletePost(@PathVariable String id) {
         if (postsService.deletePost(id)) {
-            return new ResponseEntity<String>("Post deleted Successfully.",HttpStatus.OK);
+            return new ResponseEntity<>("Post deleted Successfully.", HttpStatus.OK);
         }else {
-            return new ResponseEntity<String>("Post deleted Successfully.",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Post deleted Successfully.", HttpStatus.NOT_FOUND);
         }
     }
 }
