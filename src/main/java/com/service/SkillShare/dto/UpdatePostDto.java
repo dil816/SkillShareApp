@@ -9,5 +9,5 @@ public class UpdatePostDto {
     private String Tags;
     private String ContentTitle;
     private String PostDescription;
-    private MultipartFile ImgFile;  // photo or video
+    private MultipartFile MediaFile;  // photo or video
 }

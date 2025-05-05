@@ -65,7 +65,7 @@ public class PostsController {
             @RequestPart("PostDescription") String postDescription
     ) {
         UpdatePostDto updatePostDto = new UpdatePostDto();
-        updatePostDto.setImgFile(file);
+        updatePostDto.setMediaFile(file);
         updatePostDto.setTags(Tags);
         updatePostDto.setContentTitle(contentTitle);
         updatePostDto.setPostDescription(postDescription);

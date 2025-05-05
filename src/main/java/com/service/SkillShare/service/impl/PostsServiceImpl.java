@@ -98,8 +98,8 @@ public class PostsServiceImpl implements PostsService {
     @Override
     public Posts updatePost(String id, UpdatePostDto updatePostDto) {
         Posts existingPost = postsRepository.findById(id).orElse(null);
-        MultipartFile file = updatePostDto.getImgFile();
-        String contentType = updatePostDto.getImgFile().getContentType();
+        MultipartFile file = updatePostDto.getMediaFile();
+        String contentType = updatePostDto.getMediaFile().getContentType();
         // if post have
         if (existingPost != null) {
             if (contentType != null && contentType.startsWith("video")) {
