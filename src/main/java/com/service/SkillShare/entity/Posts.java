@@ -24,6 +24,7 @@ public class Posts {
     private ObjectId PostVideoId;
     private String PostDescription;
     private LocalDateTime PublishedAt;
+    private LocalDateTime UpdatedAt;
 
 //    public  void  setPublishedAt() {
 //        this.PublishedAt = LocalDateTime.now();
