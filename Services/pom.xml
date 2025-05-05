@@ -11,7 +11,7 @@
 	<groupId>com.service</groupId>
 	<artifactId>Services</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SkillShare</name>
+	<name>Services</name>
 	<description>SkillShare project for Spring Boot</description>
 	<url/>
 	<licenses>
