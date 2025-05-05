@@ -22,6 +22,9 @@ public interface PostsService {
     // Update Post By Id
     Posts updatePost(String id, UpdatePostDto updatePostDto);
 
+    // Delete Post By Id
+    Boolean deletePost(String id);
+
     // Stream video
     VideoDto getVideo(String id);
 }
