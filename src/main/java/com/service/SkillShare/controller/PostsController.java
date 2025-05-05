@@ -73,24 +73,24 @@ public class PostsController {
         var result = postsService.updatePost(postId, updatePostDto);
         if (result != null) {
             return ResponseEntity.status(HttpStatus.OK).body(result);
-        }else {
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
-    }
-
-    @GetMapping("/media/stream/{id}")
-    public void streamMedia(@PathVariable String id, HttpServletResponse response) throws Exception {
-        MediaDto media = postsService.getMedia(id);
-        FileCopyUtils.copy(media.getMediaStream(), response.getOutputStream());
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> deletePost(@PathVariable String id) {
         if (postsService.deletePost(id)) {
             return new ResponseEntity<>("Post deleted Successfully.", HttpStatus.OK);
-        }else {
+        } else {
             return new ResponseEntity<>("Post deleted Successfully.", HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/media/stream/{id}")
+    public void streamMedia(@PathVariable String id, HttpServletResponse response) throws Exception {
+        MediaDto media = postsService.getMedia(id);
+        FileCopyUtils.copy(media.getMediaStream(), response.getOutputStream());
     }
 }

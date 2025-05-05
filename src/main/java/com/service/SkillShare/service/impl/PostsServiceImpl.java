@@ -48,7 +48,7 @@ public class PostsServiceImpl implements PostsService {
 
     @Override
     public List<GetPostDto> getAllPosts() {
-        String mediaControllerUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/posts/videos/stream/").toUriString();
+        String mediaControllerUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/posts/media/stream/").toUriString();
         List<Posts> posts = postsRepository.findAll();
         if (posts.isEmpty()) {
             return new ArrayList<>();
@@ -75,7 +75,7 @@ public class PostsServiceImpl implements PostsService {
 
     @Override
     public GetPostDto getPostById(String id) {
-        String mediaControllerUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/posts/videos/stream/").toUriString();
+        String mediaControllerUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/posts/media/stream/").toUriString();
         Optional<Posts> post = postsRepository.findById(id);
         GetPostDto postDto = new GetPostDto();
         if (post.isPresent()) {
