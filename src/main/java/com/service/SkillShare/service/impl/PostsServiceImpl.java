@@ -61,10 +61,10 @@ public class PostsServiceImpl implements PostsService {
                     postDto.setContentTitle(post.getContentTitle());
                     postDto.setPostDescription(post.getPostDescription());
                     if (post.getPostImageId() != null) {
-                        postDto.setImageUrl(videoControllerUrl + post.getPostImageId().toString());
+                        postDto.setImageUrl(videoControllerUrl + post.getPostImageId());
                     }
                     if (post.getPostVideoId() != null) {
-                        postDto.setVideoUrl(videoControllerUrl + post.getPostVideoId().toString());
+                        postDto.setVideoUrl(videoControllerUrl + post.getPostVideoId());
                     }
                     return postDto;
                 })
@@ -84,10 +84,10 @@ public class PostsServiceImpl implements PostsService {
             postDto.setContentTitle(post.get().getContentTitle());
             postDto.setPostDescription(post.get().getPostDescription());
             if (post.get().getPostImageId() != null) {
-                postDto.setImageUrl(videoControllerUrl + post.get().getPostImageId().toString());
+                postDto.setImageUrl(videoControllerUrl + post.get().getPostImageId());
             }
             if (post.get().getPostVideoId() != null) {
-                postDto.setVideoUrl(videoControllerUrl + post.get().getPostVideoId().toString());
+                postDto.setVideoUrl(videoControllerUrl + post.get().getPostVideoId());
             }
             return postDto;
         } else {
@@ -105,7 +105,7 @@ public class PostsServiceImpl implements PostsService {
             if (contentType != null && contentType.startsWith("video")) {
                 //delete existing gridFs file (video)
                 gridFsTemplate.delete(Query.query(Criteria.where("_id").is(existingPost.getPostVideoId())));
-            }else if (contentType != null && contentType.startsWith("image")){
+            } else if (contentType != null && contentType.startsWith("image")) {
                 //delete existing gridFs file (image)
                 gridFsTemplate.delete(Query.query(Criteria.where("_id").is(existingPost.getPostImageId())));
             }
