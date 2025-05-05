@@ -3,7 +3,7 @@ package com.service.SkillShare.controller;
 import com.service.SkillShare.dto.CreatePostDto;
 import com.service.SkillShare.dto.GetPostDto;
 import com.service.SkillShare.dto.UpdatePostDto;
-import com.service.SkillShare.dto.VideoDto;
+import com.service.SkillShare.dto.MediaDto;
 import com.service.SkillShare.entity.Posts;
 import com.service.SkillShare.service.impl.PostsServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
@@ -79,10 +79,10 @@ public class PostsController {
 
     }
 
-    @GetMapping("/videos/stream/{id}")
-    public void streamVideo(@PathVariable String id, HttpServletResponse response) throws Exception {
-        VideoDto video = postsService.getVideo(id);
-        FileCopyUtils.copy(video.getVideoStream(), response.getOutputStream());
+    @GetMapping("/media/stream/{id}")
+    public void streamMedia(@PathVariable String id, HttpServletResponse response) throws Exception {
+        MediaDto media = postsService.getMedia(id);
+        FileCopyUtils.copy(media.getMediaStream(), response.getOutputStream());
     }
 
     @DeleteMapping("{id}")

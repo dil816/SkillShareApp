@@ -22,6 +22,7 @@ public class Posts {
     private Binary PostImage;
     //private InputStream PostVideo;
     private ObjectId PostVideoId;
+    private ObjectId PostImageId;
     private String PostDescription;
     private LocalDateTime PublishedAt;
     private LocalDateTime UpdatedAt;

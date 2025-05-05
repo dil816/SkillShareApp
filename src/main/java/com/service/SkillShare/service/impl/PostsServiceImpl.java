@@ -6,12 +6,10 @@ import com.mongodb.client.gridfs.model.GridFSFile;
 import com.service.SkillShare.dto.CreatePostDto;
 import com.service.SkillShare.dto.GetPostDto;
 import com.service.SkillShare.dto.UpdatePostDto;
-import com.service.SkillShare.dto.VideoDto;
+import com.service.SkillShare.dto.MediaDto;
 import com.service.SkillShare.entity.Posts;
 import com.service.SkillShare.repository.PostsRepository;
 import com.service.SkillShare.service.PostsService;
-import org.bson.BsonBinarySubType;
-import org.bson.types.Binary;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsOperations;
@@ -63,12 +61,13 @@ public class PostsServiceImpl implements PostsService {
                     postDto.setTags(post.getTags());
                     postDto.setContentTitle(post.getContentTitle());
                     postDto.setPostDescription(post.getPostDescription());
-                    if (post.getPostImage() != null) {
-                        postDto.setImageBase64(
-                                Base64.getEncoder().encodeToString(
-                                        post.getPostImage().getData()
-                                )
-                        );
+                    if (post.getPostImageId() != null) {
+//                        postDto.setImageBase64(
+//                                Base64.getEncoder().encodeToString(
+//                                        post.getPostImage().getData()
+//                                )
+//                        );
+                        postDto.setImageUrl(videoControllerUrl + post.getPostImageId().toString());
                     }
                     if (post.getPostVideoId() != null) {
                         postDto.setVideoUrl(videoControllerUrl + post.getPostVideoId().toString());
@@ -90,12 +89,13 @@ public class PostsServiceImpl implements PostsService {
             postDto.setTags(post.get().getTags());
             postDto.setContentTitle(post.get().getContentTitle());
             postDto.setPostDescription(post.get().getPostDescription());
-            if (post.get().getPostImage() != null) {
-                postDto.setImageBase64(
-                        Base64.getEncoder().encodeToString(
-                                post.get().getPostImage().getData()
-                        )
-                );
+            if (post.get().getPostImageId() != null) {
+//                postDto.setImageBase64(
+//                        Base64.getEncoder().encodeToString(
+//                                post.get().getPostImage().getData()
+//                        )
+//                );
+                postDto.setImageUrl(videoControllerUrl + post.get().getPostImageId().toString());
             }
             if (post.get().getPostVideoId() != null) {
                 postDto.setVideoUrl(videoControllerUrl + post.get().getPostVideoId().toString());
@@ -114,8 +114,11 @@ public class PostsServiceImpl implements PostsService {
         // if post have
         if (existingPost != null) {
             if (contentType != null && contentType.startsWith("video")) {
-                //delete existing gridFs file
+                //delete existing gridFs file (video)
                 gridFsTemplate.delete(Query.query(Criteria.where("_id").is(existingPost.getPostVideoId())));
+            }else if (contentType != null && contentType.startsWith("image")){
+                //delete existing gridFs file (image)
+                gridFsTemplate.delete(Query.query(Criteria.where("_id").is(existingPost.getPostImageId())));
             }
             UpsertPostWithImageVideo(contentType, existingPost, file, updatePostDto.getTags(), updatePostDto.getContentTitle(), updatePostDto.getPostDescription());
             existingPost.setUpdatedAt(LocalDateTime.now());
@@ -144,16 +147,19 @@ public class PostsServiceImpl implements PostsService {
     private void UpsertPostWithImageVideo(String contentType, Posts post, MultipartFile file, String tags, String contentTitle, String postDescription) {
         try {
             System.out.println(contentType);
-            DBObject metaData = new BasicDBObject();
-            metaData.put("type", "video");
-            metaData.put("title", UUID.randomUUID().toString());
-
             if (contentType != null && contentType.startsWith("video")) {
+                DBObject metaData = new BasicDBObject();
+                metaData.put("type", "video");
+                metaData.put("title", UUID.randomUUID().toString());
                 post.setPostVideoId(gridFsTemplate.store(file.getInputStream(), file.getName(), file.getContentType(), metaData));
             } else if (contentType != null && contentType.startsWith("image")) {
-                post.setPostImage(
-                        new Binary(BsonBinarySubType.BINARY, file.getBytes())
-                );
+                DBObject metaData = new BasicDBObject();
+                metaData.put("type", "image");
+                metaData.put("title", UUID.randomUUID().toString());
+                post.setPostImageId(gridFsTemplate.store(file.getInputStream(), file.getName(), file.getContentType(), metaData));
+//                post.setPostImage(
+//                        new Binary(BsonBinarySubType.BINARY, file.getBytes())
+//                );
             }
             post.setTags(tags);
             post.setContentTitle(contentTitle);
@@ -164,18 +170,18 @@ public class PostsServiceImpl implements PostsService {
     }
 
     @Override
-    public VideoDto getVideo(String id) {
-        VideoDto videoDto = new VideoDto();
+    public MediaDto getMedia(String id) {
+        MediaDto mediaDto = new MediaDto();
         GridFSFile file = gridFsTemplate.findOne(Query.query(Criteria.where("_id").is(id)));
         if (file.getMetadata() != null) {
-            videoDto.setVideoTitle(file.getMetadata().get("title").toString());
+            mediaDto.setMediaTitle(file.getMetadata().get("title").toString());
         }
         try {
-            videoDto.setVideoStream(operations.getResource(file).getInputStream());
+            mediaDto.setMediaStream(operations.getResource(file).getInputStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return videoDto;
+        return mediaDto;
     }
 }

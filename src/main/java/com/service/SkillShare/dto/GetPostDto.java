@@ -13,6 +13,7 @@ public class GetPostDto {
     private String PostDescription;
     private String ImageBase64;
 
+    private String ImageUrl;
     private String VideoUrl;
 
 
