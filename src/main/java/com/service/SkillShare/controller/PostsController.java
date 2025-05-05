@@ -56,7 +56,7 @@ public class PostsController {
         return ResponseEntity.status(HttpStatus.OK).body(postsService.getPostById(postId));
     }
 
-    @PutMapping("{id}")
+    @PutMapping(value = "{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Posts> updatePost(
             @PathVariable("id") String postId,
             @RequestPart("ImgFile") MultipartFile file,
@@ -70,12 +70,27 @@ public class PostsController {
         updatePostDto.setContentTitle(contentTitle);
         updatePostDto.setPostDescription(postDescription);
 
-        return ResponseEntity.status(HttpStatus.OK).body(postsService.updatePost(postId, updatePostDto));
+        var result = postsService.updatePost(postId, updatePostDto);
+        if (result != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
     }
 
     @GetMapping("/videos/stream/{id}")
     public void streamVideo(@PathVariable String id, HttpServletResponse response) throws Exception {
         VideoDto video = postsService.getVideo(id);
         FileCopyUtils.copy(video.getVideoStream(), response.getOutputStream());
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deletePost(@PathVariable String id) {
+        if (postsService.deletePost(id)) {
+            return new ResponseEntity<String>("Post deleted Successfully.",HttpStatus.OK);
+        }else {
+            return new ResponseEntity<String>("Post deleted Successfully.",HttpStatus.NOT_FOUND);
+        }
     }
 }
