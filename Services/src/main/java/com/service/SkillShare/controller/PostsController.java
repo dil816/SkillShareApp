@@ -1,9 +1,9 @@
 package com.service.SkillShare.controller;
 
-import com.service.SkillShare.dto.CreatePostDto;
-import com.service.SkillShare.dto.GetPostDto;
-import com.service.SkillShare.dto.UpdatePostDto;
-import com.service.SkillShare.dto.MediaDto;
+import com.service.SkillShare.dto.post.CreatePostDto;
+import com.service.SkillShare.dto.post.GetPostDto;
+import com.service.SkillShare.dto.post.UpdatePostDto;
+import com.service.SkillShare.dto.post.MediaDto;
 import com.service.SkillShare.entity.Posts;
 import com.service.SkillShare.service.impl.PostsServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;

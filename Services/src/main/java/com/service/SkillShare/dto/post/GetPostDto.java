@@ -1,4 +1,4 @@
-package com.service.SkillShare.dto;
+package com.service.SkillShare.dto.post;
 
 import lombok.Getter;
 import lombok.Setter;
