@@ -26,7 +26,6 @@ public class PostsController {
         this.postsService = postsService;
     }
 
-    
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Posts> postPost(
             @RequestPart("MediaFile") MultipartFile file,
