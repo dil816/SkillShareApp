@@ -10,6 +10,7 @@ public class CreatePostDto {
     private String ContentTitle;
     private String PostDescription;
     private MultipartFile MediaFile;  // photo or video
+    
 }
 
 
