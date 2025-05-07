@@ -1,4 +1,4 @@
 package com.service.SkillShare.entity;
 
-public class LearningProgress {
+public class LearningPlan {
 }
