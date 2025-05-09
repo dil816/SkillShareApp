@@ -22,7 +22,7 @@ public class Feedbacks {
 private String id;
 private String Comment;
 private String Author;
-private Date CreatedAt = new Date();
+private String CreatedAt;
 private String LikeCount;
 
 

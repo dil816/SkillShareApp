@@ -10,4 +10,6 @@ public class SkillShareApplication {
 		SpringApplication.run(SkillShareApplication.class, args);
 	}
 
+
+	
 }
