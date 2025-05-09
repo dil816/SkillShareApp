@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
 function Footer() {
   return (
     <div>
-         <footer>
+      <footer>
         {/* Footer Start*/}
         <div className="footer-main footer-bg">
           <div className="footer-area footer-padding">
@@ -14,13 +14,28 @@ function Footer() {
                     <div className="single-footer-caption mb-30">
                       {/* logo */}
                       <div className="footer-logo">
-                        <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt="" /></a>
+                        <a href="index.html">
+                          <img src="assets/img/logo/logo2_footer.png" alt="" />
+                        </a>
                       </div>
                       <div className="footer-tittle">
                         <div className="footer-pera">
-                          <p className="info1">Lorem ipsum dolor sit amet, nsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                          <p className="info2">198 West 21th Street, Suite 721 New York,NY 10010</p>
-                          <p className="info2">Phone: +95 (0) 123 456 789 Cell: +95 (0) 123 456 789</p>
+                          <p className="info1">
+                            SkillShare is a learning-driven platform designed to
+                            connect individuals with meaningful workshops,
+                            expert-led sessions, and hands-on experiences across
+                            a wide range of skills and disciplines. Whether
+                            you're diving into technology, business, design, or
+                            personal development, SkillShare empowers you to
+                            grow at your own pace, guided by professionals who
+                            are passionate about sharing their knowledge.
+                          </p>
+                          <p className="info2">
+                            198 West 21th Street, Suite 721 New York,NY 10010
+                          </p>
+                          <p className="info2">
+                            Phone: +95 (0) 123 456 789 Cell: +95 (0) 123 456 789
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -37,8 +52,12 @@ function Footer() {
                         <img src="assets/img/gallery/footer_post1.png" alt="" />
                       </div>
                       <div className="whats-right-cap">
-                        <h4><a href="latest_news.html">Scarlett’s disappointment at latest accolade</a></h4>
-                        <p>Jhon  |  2 hours ago</p> 
+                        <h4>
+                          <a href="latest_news.html">
+                            Scarlett’s disappointment at latest accolade
+                          </a>
+                        </h4>
+                        <p>Jhon | 2 hours ago</p>
                       </div>
                     </div>
                     {/* Popular post */}
@@ -47,8 +66,12 @@ function Footer() {
                         <img src="assets/img/gallery/footer_post2.png" alt="" />
                       </div>
                       <div className="whats-right-cap">
-                        <h4><a href="latest_news.html">Scarlett’s disappointment at latest accolade</a></h4>
-                        <p>Jhon  |  2 hours ago</p> 
+                        <h4>
+                          <a href="latest_news.html">
+                            Scarlett’s disappointment at latest accolade
+                          </a>
+                        </h4>
+                        <p>Jhon | 2 hours ago</p>
                       </div>
                     </div>
                     {/* Popular post */}
@@ -57,8 +80,12 @@ function Footer() {
                         <img src="assets/img/gallery/footer_post3.png" alt="" />
                       </div>
                       <div className="whats-right-cap">
-                        <h4><a href="latest_news.html">Scarlett’s disappointment at latest accolade</a></h4>
-                        <p>Jhon  |  2 hours ago</p> 
+                        <h4>
+                          <a href="latest_news.html">
+                            Scarlett’s disappointment at latest accolade
+                          </a>
+                        </h4>
+                        <p>Jhon | 2 hours ago</p>
                       </div>
                     </div>
                   </div>
@@ -80,9 +107,11 @@ function Footer() {
                 <div className="row d-flex align-items-center">
                   <div className="col-xl-12 ">
                     <div className="footer-copy-right text-center">
-                      <p>{/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                        Copyright © All rights reserved | This template is made with <i className="fa fa-heart" aria-hidden="true" /> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}</p>
+                      <p>
+                        {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
+                        Copyright © All rights reserved SKILLSHARE
+                        {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -93,7 +122,7 @@ function Footer() {
         {/* Footer End*/}
       </footer>
     </div>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
