@@ -34,7 +34,7 @@ public class FeedbackController {
 
     }
 
-    @GetMapping()
+    @GetMapping("/")
     public ResponseEntity<List<GetFeedbackDto>> getAllPosts() {
         return ResponseEntity.status(HttpStatus.OK).body(feedbacksService.getAllFeedbacks());
     }
