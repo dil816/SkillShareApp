@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 // Base URL for the API endpoints
-const API_BASE_URL = 'http://localhost:8080/api/event-registration';
+const API_BASE_URL = "http://localhost:8086/api/event-registration";
 
 const eventService = {
   // Get all events
@@ -10,7 +10,7 @@ const eventService = {
       const response = await axios.get(`${API_BASE_URL}/`);
       return response.data;
     } catch (error) {
-      console.error('Error fetching events:', error);
+      console.error("Error fetching events:", error);
       throw error;
     }
   },
@@ -32,7 +32,7 @@ const eventService = {
       const response = await axios.post(`${API_BASE_URL}/create`, eventData);
       return response.data;
     } catch (error) {
-      console.error('Error creating event:', error);
+      console.error("Error creating event:", error);
       throw error;
     }
   },
@@ -57,7 +57,7 @@ const eventService = {
       console.error(`Error deleting event with ID ${id}:`, error);
       throw error;
     }
-  }
+  },
 };
 
 export default eventService;
