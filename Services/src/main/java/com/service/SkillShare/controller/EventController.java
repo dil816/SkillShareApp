@@ -34,7 +34,7 @@ public class EventController {
 
     }
 
-    @GetMapping()
+    @GetMapping("/")
     public ResponseEntity<List<GetEventDto>> getAllPosts() {
         return ResponseEntity.status(HttpStatus.OK).body(eventService.getAllEventRegistrations());
     }
