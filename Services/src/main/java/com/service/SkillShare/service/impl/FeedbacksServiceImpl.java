@@ -27,6 +27,7 @@ public class FeedbacksServiceImpl implements FeedbacksService {
         Feedbacks feedbacks = new Feedbacks();
         feedbacks.setComment(createFeedbackDto.getComment());
         feedbacks.setAuthor(createFeedbackDto.getAuthor());
+        feedbacks.setCreatedAt(createFeedbackDto.getCreatedAt());
         feedbacks.setLikeCount(createFeedbackDto.getLikeCount());
         return feedbacksRepository.insert(feedbacks);
     }
@@ -76,6 +77,7 @@ public class FeedbacksServiceImpl implements FeedbacksService {
         if(existingFeedback != null){
             existingFeedback.setLikeCount(updateFeedbackDto.getLikeCount());
             existingFeedback.setAuthor(updateFeedbackDto.getAuthor());
+            existingFeedback.setCreatedAt(updateFeedbackDto.getCreatedAt());
             existingFeedback.setComment(updateFeedbackDto.getComment());
             feedbacksRepository.save(existingFeedback);
             return existingFeedback;
