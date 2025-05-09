@@ -18,7 +18,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("api/feedback")
+@RequestMapping("api/event-registration")
 public class EventController {
     private final EventServiceImpl eventService;
 
@@ -27,7 +27,7 @@ public class EventController {
     }
 
     @PostMapping("create")
-    public ResponseEntity<Event> postEvent(@RequestBody CreateEventDto createFeedbackDto){
+    public ResponseEntity<Event> postEvent(@RequestBody CreateEventDto createFeedbackDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(eventService.createEventRegistration(createFeedbackDto));
@@ -44,10 +44,9 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.OK).body(eventService.getEventRegistrationById(feedbackId));
     }
 
-
     @PutMapping("{id}")
-    public ResponseEntity<Event> updateEvent(@PathVariable("id") String feedbackId, @RequestBody UpdateEventDto updateFeedbackDto)
-    {
+    public ResponseEntity<Event> updateEvent(@PathVariable("id") String feedbackId,
+            @RequestBody UpdateEventDto updateFeedbackDto) {
         var result = eventService.updateEventRegistration(feedbackId, updateFeedbackDto);
         if (result != null) {
             return ResponseEntity.status(HttpStatus.OK).body(result);
@@ -55,7 +54,6 @@ public class EventController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deleteEvent(@PathVariable String id) {
