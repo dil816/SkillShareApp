@@ -10,6 +10,7 @@ import com.service.SkillShare.entity.Feedbacks;
 import com.service.SkillShare.entity.Posts;
 
 import java.util.List;
+import java.util.SimpleTimeZone;
 
 public interface FeedbacksService {
 
@@ -20,7 +21,7 @@ public interface FeedbacksService {
     List<GetFeedbackDto> getAllFeedbacks();
 
     // Get Feedback By Id
-    GetFeedbackDto getPostById(String id);
+    GetFeedbackDto getFeedbackById(String id);
 
     // Update Feedback By Id
     Feedbacks updateFeedbacks(String id, UpdateFeedbackDto updateFeedbackDto);
