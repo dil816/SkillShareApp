@@ -34,7 +34,7 @@ public class LearningPlansController {
 
     }
 
-    @GetMapping()
+    @GetMapping("/")
     public ResponseEntity<List<GetLearningPlansDto>> getAllLearningPlans() {
         return ResponseEntity.status(HttpStatus.OK).body(learningPlansService.getAllLearningPlans());
     }

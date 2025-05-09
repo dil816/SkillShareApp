@@ -65,6 +65,7 @@ function Header() {
                           <li><Link to="/user/skill-post-view">Category</Link></li>
                           <li><Link to="/user/blog-details">Latest News</Link></li>
                           <li><Link to="#">Pages</Link>
+                          <li><Link to="/user/learning-plans">Learning Plans</Link></li>
                             <ul className="submenu">
                               <li><Link to="/user/blog">Blog</Link></li>
                               <li><Link to="/user/blog-details">Blog Details</Link></li>
