@@ -9,6 +9,7 @@ public class UpdateFeedbackDto {
     private String id;
     private String Comment;
     private String Author;
+    private String CreatedAt;
     private String LikeCount;
 
 }
