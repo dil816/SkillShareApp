@@ -11,7 +11,7 @@ public class CreateFeedbackDto {
     private String id;
     private String Comment;
     private String Author;
-    private Date CreatedAt;
+    private String CreatedAt;
     private String LikeCount;
 
 }
