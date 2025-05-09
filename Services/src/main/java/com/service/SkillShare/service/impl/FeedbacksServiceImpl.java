@@ -4,15 +4,17 @@ import com.service.SkillShare.dto.feedback.CreateFeedbackDto;
 import com.service.SkillShare.dto.feedback.GetFeedbackDto;
 import com.service.SkillShare.dto.feedback.UpdateFeedbackDto;
 import com.service.SkillShare.entity.Feedbacks;
+import com.service.SkillShare.exception.NotFoundException;
 import com.service.SkillShare.repository.FeedbacksRepository;
 import com.service.SkillShare.service.FeedbacksService;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public
-class FeedbacksServiceImpl implements FeedbacksService {
+@Service
+public class FeedbacksServiceImpl implements FeedbacksService {
 
     private final FeedbacksRepository feedbacksRepository;
 
@@ -83,7 +85,13 @@ class FeedbacksServiceImpl implements FeedbacksService {
 
     @Override
     public Boolean deleteFeedbacks(String id) {
-        return null;
+        if (!feedbacksRepository.existsById(id)) {
+            throw new NotFoundException("Feedback not found with ID: " + id);
+        }
+        feedbacksRepository.deleteById(id);
+        return true;
     }
+
+
 }
 
