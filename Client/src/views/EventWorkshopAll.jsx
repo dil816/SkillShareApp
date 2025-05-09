@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Button, Container, Row, Col, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import eventService from '../services/eventService';
+import React, { useState, useEffect } from "react";
+import { Card, Button, Container, Row, Col, Alert } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import eventService from "../services/eventService";
 
 function EventWorkshopAll() {
   const [events, setEvents] = useState([]);
@@ -17,7 +17,7 @@ function EventWorkshopAll() {
         setEvents(data);
         setLoading(false);
       } catch (err) {
-        setError('Failed to load events. Please try again later.');
+        setError("Failed to load events. Please try again later.");
         setLoading(false);
       }
     };
@@ -26,34 +26,36 @@ function EventWorkshopAll() {
   }, []);
 
   const formatDate = (dateString) => {
-    if (!dateString) return 'Date not available';
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    if (!dateString) return "Date not available";
+    const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-  if (loading) return (
-    <Container className="py-5">
-      <div className="text-center">Loading events...</div>
-    </Container>
-  );
+  if (loading)
+    return (
+      <Container className="py-5">
+        <div className="text-center">Loading events...</div>
+      </Container>
+    );
 
-  if (error) return (
-    <Container className="py-5">
-      <Alert variant="danger">{error}</Alert>
-    </Container>
-  );
+  if (error)
+    return (
+      <Container className="py-5">
+        <Alert variant="danger">{error}</Alert>
+      </Container>
+    );
 
   return (
     <Container className="py-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2>Event Workshops</h2>
       </div>
-      
+
       {events.length === 0 ? (
         <Alert variant="info">No events currently available.</Alert>
       ) : (
         <Row>
-          {events.map(event => (
+          {events.map((event) => (
             <Col md={6} lg={4} className="mb-4" key={event.id}>
               <Card className="h-100 shadow-sm">
                 <Card.Body>
@@ -73,9 +75,7 @@ function EventWorkshopAll() {
                     </div>
                   </Card.Text>
                 </Card.Body>
-                <Card.Footer className="bg-white">
-                 
-                </Card.Footer>
+                <Card.Footer className="bg-white"></Card.Footer>
               </Card>
             </Col>
           ))}
@@ -84,5 +84,5 @@ function EventWorkshopAll() {
     </Container>
   );
 }
- 
+
 export default EventWorkshopAll;
