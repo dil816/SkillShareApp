@@ -7,20 +7,26 @@ import com.service.SkillShare.dto.post.GetPostDto;
 import com.service.SkillShare.entity.Feedbacks;
 import com.service.SkillShare.repository.FeedbacksRepository;
 import com.service.SkillShare.service.FeedbacksService;
+
 import com.service.SkillShare.service.impl.FeedbacksServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin
+@RestController
+@RequestMapping("api/feedback")
 public class FeedbackController {
 
 
     private final FeedbacksServiceImpl feedbacksService;
 
-    FeedbackController(FeedbacksServiceImpl feedbacksService) {this.feedbacksService = feedbacksService;}
+    FeedbackController(FeedbacksServiceImpl feedbacksService) {
+        this.feedbacksService = feedbacksService;
+    }
 
+    @PostMapping("create")
     public ResponseEntity<Feedbacks> postfeedback( @RequestBody CreateFeedbackDto createFeedbackDto){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -50,14 +56,9 @@ public class FeedbackController {
         }
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteFeedback(@PathVariable("id") String feedbackId)
-    {
-        if (feedbacksService.deleteFeedbacks(feedbackId)) {
-            return new ResponseEntity<>("Post deleted Successfully.", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Post deleted Successfully.", HttpStatus.NOT_FOUND);
-        }
-    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> deleteFeedback(@PathVariable String id) {
+        return ResponseEntity.status(HttpStatus.OK).body(feedbacksService.deleteFeedbacks(id));
+    }
 }
