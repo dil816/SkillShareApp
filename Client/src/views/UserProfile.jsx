@@ -162,6 +162,11 @@ function UserProfile() {
                   Event Workshop Managment
                 </Link>
               </div>
+              <div className="card mt-3">
+                <Link to="/user/plane-create" className="btn btn-primary">
+                  Add Learning Plans
+                </Link>
+              </div>
             </div>
             <div className="col-md-8">
               <div className="card mb-3">
