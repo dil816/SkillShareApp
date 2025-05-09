@@ -13,7 +13,7 @@ const UserData = [
   {
     id: 1,
     img: img1,
-    title: "Ramith Kalhara",
+    title: "Osura Samoda",
     pargrhap: "Struggling to sell one multi-million dollar home currently on the market won’t stop actress and singer Jennifer Lopez.",
     day: "19",
     month: "Jun",
@@ -33,7 +33,7 @@ const UserData = [
   {
     id: 3,
     img: img3,
-    title: "Ramith Kalhara",
+    title: "Rivindu dilo",
     pargrhap: "Electric vehicles are no longer a luxury—here's how they’re changing the world.",
     day: "11",
     month: "Sep",
@@ -43,7 +43,7 @@ const UserData = [
   {
     id: 4,
     img: img4,
-    title: "Ramith Kalhara",
+    title: "Osura Samoda",
     pargrhap: "Remote work is booming. These are the top places to explore and stay productive.",
     day: "22",
     month: "Oct",
@@ -53,7 +53,7 @@ const UserData = [
   {
     id: 5,
     img: img5,
-    title: "Ramith Kalhara",
+    title: "Osura Samoda",
     pargrhap: "Simplicity is the key to focus. Discover how minimalism transforms productivity.",
     day: "14",
     month: "Nov",
@@ -63,7 +63,7 @@ const UserData = [
   {
     id: 6,
     img: img6,
-    title: "Ramith Kalhara",
+    title: "Rivindu dilo",
     pargrhap: "Companies are investing in mental wellness. Here’s why it matters.",
     day: "03",
     month: "Dec",
@@ -73,7 +73,7 @@ const UserData = [
   {
     id: 7,
     img: img7,
-    title: "Ramith Kalhara",
+    title: "Rivindu dilo",
     pargrhap: "From quantum computing to smarter AI, the future is closer than you think.",
     day: "01",
     month: "Jan",
@@ -83,7 +83,7 @@ const UserData = [
   {
     id: 8,
     img: img8,
-    title: "Ramith Kalhara",
+    title: "Rivindu dilo",
     pargrhap: "From quantum computing to smarter AI, the future is closer than you think.",
     day: "01",
     month: "Jan",
@@ -93,7 +93,7 @@ const UserData = [
   {
     id: 9,
     img: img9,
-    title: "Ramith Kalhara",
+    title: "Osura Samoda",
     pargrhap: "From quantum computing to smarter AI, the future is closer than you think.",
     day: "01",
     month: "Jan",
