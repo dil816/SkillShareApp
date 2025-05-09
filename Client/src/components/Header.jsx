@@ -67,6 +67,7 @@ function Header() {
                                                     <li><Link to="/user/event-workshop-all">Events & Workshops</Link></li>
                           
                           <li><Link to="#">Pages</Link>
+                          <li><Link to="/user/learning-plans">Learning Plans</Link></li>
                             <ul className="submenu">
                               <li><Link to="/user/blog">Blog</Link></li>
                               <li><Link to="/user/blog-details">Blog Details</Link></li>
