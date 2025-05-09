@@ -64,6 +64,8 @@ function Header() {
                           <li><Link to="/user/about">About</Link></li> {/* Use Link for navigation */}
                           <li><Link to="/user/skill-post-view">Category</Link></li>
                           <li><Link to="/user/blog-details">Latest News</Link></li>
+                                                    <li><Link to="/user/event-workshop-all">Events & Workshops</Link></li>
+                          
                           <li><Link to="#">Pages</Link>
                             <ul className="submenu">
                               <li><Link to="/user/blog">Blog</Link></li>
